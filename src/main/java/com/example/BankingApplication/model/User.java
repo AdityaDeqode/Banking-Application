@@ -1,6 +1,9 @@
 package com.example.BankingApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 
 @Entity
@@ -14,6 +17,20 @@ public class User {
     private String username;
     private String password;
     private double balance;
+
+//    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
+
+
+    @JsonIgnore
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 
     public User(String username, String password, double balance) {
         this.username = username;
